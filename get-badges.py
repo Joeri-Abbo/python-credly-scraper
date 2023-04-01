@@ -4,6 +4,7 @@ import helper
 
 
 def get_badges(badges, url):
+    print(url)
     r = requests.get(url).json()
     for badge in r["data"]:
         badges[badge['id']] = badge
