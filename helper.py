@@ -46,10 +46,9 @@ def set_items_from_file(file_name, items):
 
 
 def crawl_search_terms(terms):
-    organizations = get_items_from_file(get_organizations_file())
-    skills = get_items_from_file(get_skills_file())
-
     for search_term in terms:
+        organizations = get_items_from_file(get_organizations_file())
+        skills = get_items_from_file(get_skills_file())
         items = get_items_by_search_term(search_term)
         print(search_term, len(items))
         for item in items:
@@ -61,5 +60,5 @@ def crawl_search_terms(terms):
                 organizations[item['id']] = item
             elif item['type'] == 'Skill':
                 skills[item['id']] = item
-    set_items_from_file(get_organizations_file(), organizations)
-    set_items_from_file(get_skills_file(), skills)
+        set_items_from_file(get_organizations_file(), organizations)
+        set_items_from_file(get_skills_file(), skills)
