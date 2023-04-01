@@ -12,8 +12,10 @@ def get_organizations_file():
     return 'data/organizations.json'
 
 
-def get_badges_file():
-    return 'data/badges.json'
+def get_badges_file(id):
+    return 'data/badges/{}.json'.format(
+        id
+    )
 
 
 def get_search_terms_file():
@@ -62,3 +64,16 @@ def crawl_search_terms(terms):
                 skills[item['id']] = item
         set_items_from_file(get_organizations_file(), organizations)
         set_items_from_file(get_skills_file(), skills)
+
+
+def get_badges(badges, url):
+    print(url)
+    try:
+        r = requests.get(url).json()
+        for badge in r["data"]:
+            badges[badge['id']] = badge
+        if r["metadata"]["next_page_url"]:
+            get_badges(badges, r["metadata"]["next_page_url"])
+    except:
+        print("Error")
+    return badges
